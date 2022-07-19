@@ -1,0 +1,121 @@
+*{
+    margin:0;
+    padding:0;
+    font-family:verdana;
+    box-sizing:border-box;
+  }
+  .abc{
+    width:100%;
+    height:100vh;
+    background-image: url(background_fk.jpg);
+    background-size: cover;
+  }
+  
+  nav{
+    width: 100%;
+    height: 50px;
+    background-color: #0005;
+    line-height: 50px;
+  }
+
+  nav ul {
+    /* float: left; */
+    margin-left: 10px;
+  }
+ 
+  nav ul .move1{
+    /* float: right; */
+    padding-left:65%;
+    margin-right: 10px;
+  }
+  nav ul .move2{
+    /* float: right; */
+    /* padding-left: 50; */
+    margin-right: 10px;
+  }
+  
+  nav ul .move3{
+    /* float: right; */
+    /* padding-left: 50; */
+    margin-right: 10px;
+  }
+  
+  
+  nav ul li{
+    list-style-type: none;
+    display: inline-block;
+    transition: 0.7s all;
+  }
+ 
+  nav ul li:hover{
+    background-color:#63666a;
+  }
+  nav ul li a{
+    text-decoration: none;
+    color: #fff;
+    padding: 30px;
+  }
+
+  .abc .container{
+    width:100%;
+    height:100vh;
+    background-image: url(background_fk.jpg);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .abc .container .card{
+    margin-top: 7%;
+    height: 400px;
+    width:90%;
+    max-width: 440px;
+    color: #fff;
+    text-align: center;
+    padding: 50px 35px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+  }
+
+  .abc .container .card .img
+  {
+    width: 140px;
+    border-radius:50%;
+  }
+
+  .abc .container .card h2{
+    font-size: 30px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+
+  .abc .container .card p{
+    font-size: 10px;
+    margin: 10px auto;
+    max-width: 330px;
+  }
+
+  
+.btn{
+    display: inline-block;
+    margin-top: 1rem;
+    border-radius: 5rem;
+    background: #818283;
+    padding: .7rem;
+    padding-left: 2rem;
+    font-size: 1.7rem;
+    color:white;
+    text-decoration: none;
+    transition:.2s linear;
+}
+
+.btn:hover{
+    margin-top: 2rem;
+}
+
+   
+    
+  
