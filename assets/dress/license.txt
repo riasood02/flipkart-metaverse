@@ -1,0 +1,11 @@
+Model Information:
+* title:	dress
+* source:	https://sketchfab.com/3d-models/dress-9eb452d88fe04784a7af448d217b53dd
+* author:	ZahraAmini (https://sketchfab.com/ZahraAmini)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "dress" (https://sketchfab.com/3d-models/dress-9eb452d88fe04784a7af448d217b53dd) by ZahraAmini (https://sketchfab.com/ZahraAmini) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Blue Dress
+* source:	https://sketchfab.com/3d-models/blue-dress-a5a4323760ed44009bc716021c559b92
+* author:	Angelina Scher (Selv) (https://sketchfab.com/angelinascher)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Blue Dress" (https://sketchfab.com/3d-models/blue-dress-a5a4323760ed44009bc716021c559b92) by Angelina Scher (Selv) (https://sketchfab.com/angelinascher) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
