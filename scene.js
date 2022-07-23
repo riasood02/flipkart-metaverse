@@ -33,7 +33,7 @@ loader.load('assets/metaverse shop.gltf',function(gltfScene){
     loader.load('https://d1a370nemizbjq.cloudfront.net/6ea10d1a-705e-42f9-b9ed-eefe42b0a15e.glb',function(glb){
         const root=glb.scene;
         root.scale.set(0.13,0.13,0.13);
-        // root.position.set(0.7,0.2,0);
+        root.position.set(0.7,0.2,0);
         // root.rotation.y-=1;
         scenic.add(root);
     },function(xhr){
@@ -56,7 +56,7 @@ const sizes={
 	width:window.innerWidth,
 	height:window.innerHeight
 }
-const camera =new THREE.PerspectiveCamera(75,sizes.width/sizes.height,0.1,100)
+const camera =new THREE.PerspectiveCamera()
 
 camera.position.set(0,1,2)
 scenic.add(camera)
