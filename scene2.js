@@ -1,8 +1,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.module.js';
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
-import { GLTFLoader } from "./three.js-master/examples/jsm/loaders/GLTFLoader.js"
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
 
 
 class BasicCharacterControllerProxy {
@@ -26,6 +25,7 @@ class BasicCharacterController {
     this._decceleration = new THREE.Vector3(-0.0005, -0.0001, -5.0);
     this._acceleration = new THREE.Vector3(1, 0.25, 50.0);
     this._velocity = new THREE.Vector3(0, 0, 0);
+    this._position = new THREE.Vector3();
 
     this._animations = {};
     this._input = new BasicCharacterControllerInput();
@@ -36,17 +36,10 @@ class BasicCharacterController {
   }
 
   _LoadModels() {
-    // const loader2 = new GLTFLoader();
-    //     loader2.load('https://d1a370nemizbjq.cloudfront.net/6ea10d1a-705e-42f9-b9ed-eefe42b0a15e.glb', (glb) => {
-    //        glb.scene.scale.set(0.1,0.1,); 
-    //       glb.scene.traverse(c => {
-    //         c.castShadow = true;
-    //       });
-          
     const loader = new FBXLoader();
     
     loader.load('assets/mremireh_o_desbiens.fbx', (fbx) => {
-        fbx.scale.setScalar(0.1);
+      fbx.scale.setScalar(0.1);
       fbx.traverse(c => {
         c.castShadow = true;
       });
@@ -80,8 +73,19 @@ class BasicCharacterController {
     });
   }
 
-  Update(timeInSeconds) {
+  get Position() {
+    return this._position;
+  }
+
+  get Rotation() {
     if (!this._target) {
+      return new THREE.Quaternion();
+    }
+    return this._target.quaternion;
+  }
+
+  Update(timeInSeconds) {
+    if (!this._stateMachine._currentState) {
       return;
     }
 
@@ -149,7 +153,7 @@ class BasicCharacterController {
     controlObject.position.add(forward);
     controlObject.position.add(sideways);
 
-    oldPosition.copy(controlObject.position);
+    this._position.copy(controlObject.position);
 
     if (this._mixer) {
       this._mixer.update(timeInSeconds);
@@ -467,7 +471,8 @@ class IdleState extends State {
   }
 };
 
-class ThirdPersonCamera{
+
+class ThirdPersonCamera {
   constructor(params) {
     this._params = params;
     this._camera = params.camera;
@@ -506,7 +511,8 @@ class ThirdPersonCamera{
   }
 }
 
-class CharacterControllerDemo {
+
+class ThirdPersonCameraDemo {
   constructor() {
     this._Initialize();
   }
@@ -522,10 +528,12 @@ class CharacterControllerDemo {
     this._threejs.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(this._threejs.domElement);
-
+    //this._raycaster = new THREE.Raycaster();
+    //this._pointer = new THREE.Vector2();
     window.addEventListener('resize', () => {
       this._OnWindowResize();
     }, false);
+    
 
     const fov = 60;
     const aspect = 1920 / 1080;
@@ -533,9 +541,11 @@ class CharacterControllerDemo {
     const far = 1000.0;
     this._camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     this._camera.position.set(25, 10, 25);
-   
-    this._scene = new THREE.Scene();
 
+    this._scene = new THREE.Scene();
+   
+    //document.addEventListener( 'pointermove',(e)=> this._onPointerMove(e),false);
+   
     let light = new THREE.DirectionalLight(0xFFFFFF, 1.0);
     light.position.set(-100, 100, 100);
     light.target.position.set(0, 0, 0);
@@ -555,12 +565,7 @@ class CharacterControllerDemo {
 
     light = new THREE.AmbientLight(0xFFFFFF, 0.25);
     this._scene.add(light);
-
-    const controls = new OrbitControls(
-      this._camera, this._threejs.domElement);
-    controls.target.set(0, 10, 0);
-    controls.update();
-
+    
     const loader = new THREE.CubeTextureLoader();
     const texture = loader.load([
         './assets/lawn/posx.jpg',
@@ -573,40 +578,73 @@ class CharacterControllerDemo {
     texture.encoding = THREE.sRGBEncoding;
     this._scene.background = texture;
 
-    // const plane = new THREE.Mesh(
-    //     new THREE.PlaneGeometry(100, 100, 10, 10),
-    //     new THREE.MeshStandardMaterial({
-    //         color: 0x808080,
-    //       }));
-    // plane.castShadow = false;
-    // plane.receiveShadow = true;
-    // plane.rotation.x = -Math.PI / 2;
-    // this._scene.add(plane);
+    const plane = new THREE.Mesh(
+        new THREE.PlaneGeometry(100, 100, 10, 10),
+        new THREE.MeshStandardMaterial({
+            color: 0x808080,
+          }));
+    plane.castShadow = false;
+    plane.receiveShadow = true;
+    plane.rotation.x = -Math.PI / 2;
+    this._scene.add(plane);
     
-        const loader1 = new GLTFLoader();
+
+
+    // enetering shop
+    const loader1 = new GLTFLoader();
         loader1.load('./assets/metaverse shop.gltf', (gltf) => {
-           gltf.scene.scale.set(7,7,7); 
+           gltf.scene.scale.set(15,15,10); 
           gltf.scene.traverse(c => {
             c.castShadow = true;
           });
           this._scene.add(gltf.scene);
+          loader1.load('./assets/dress1/scene.gltf', (gltf) => {
+            gltf.scene.scale.set(7,7,5); 
+            gltf.scene.position.x+=40;
+            gltf.scene.position.y+=18;
+            gltf.scene.position.z+=8;
+           
+           gltf.scene.traverse(c => {
+             c.castShadow = true;
+           });
+           this._scene.add(gltf.scene);
+           
+         });
           
         });
-         const loader2 = new GLTFLoader();
-        loader2.load('https://d1a370nemizbjq.cloudfront.net/6ea10d1a-705e-42f9-b9ed-eefe42b0a15e.glb', (glb) => {
-           glb.scene.scale.set(0.1,0.1,); 
-          glb.scene.traverse(c => {
-            c.castShadow = true;
-          });
-          this._scene.add(glb)
-        });
-      
+    // shop items
+   
+    //this._onClick();
     this._mixers = [];
     this._previousRAF = null;
-
+    //this._onPointerMove();
     this._LoadAnimatedModel();
     this._RAF();
+    //this._threejs.domElement.addEventListener('click',(e)=>onClick(e), false);
   }
+  //  _onClick(event) {
+
+  //   event.preventDefault();
+  
+  //   this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  //   this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  
+  //   this._raycaster.setFromCamera(this._mouse, this._camera);
+  
+  //   var intersects = this._raycaster.intersectObjects(this._scene.children);
+  // console.log(intersects);
+  //   if (intersects.length > 0) {
+  
+  //     console.log('Intersection:', intersects[0]);
+  
+  //   }
+  
+  // }
+
+  
+   
+
+
 
   _LoadAnimatedModel() {
     const params = {
@@ -614,44 +652,12 @@ class CharacterControllerDemo {
       scene: this._scene,
     }
     this._controls = new BasicCharacterController(params);
+
     this._thirdPersonCamera = new ThirdPersonCamera({
       camera: this._camera,
       target: this._controls,
     });
   }
-
-  _LoadAnimatedModelAndPlay(path, modelFile, animFile, offset) {
-    const loader = new FBXLoader();
-    loader.setPath(path);
-    loader.load(modelFile, (fbx) => {
-      fbx.scale.setScalar(0.1);
-      fbx.traverse(c => {
-        c.castShadow = true;
-      });
-      fbx.position.copy(offset);
-
-      const anim = new FBXLoader();
-      anim.setPath(path);
-      anim.load(animFile, (anim) => {
-        const m = new THREE.AnimationMixer(fbx);
-        this._mixers.push(m);
-        const idle = m.clipAction(anim.animations[0]);
-        idle.play();
-      });
-      this._scene.add(fbx);
-    });
-  }
-
-  _LoadModel() {
-    const loader = new GLTFLoader();
-    loader.load('./assets/lawn/thing.glb', (gltf) => {
-      gltf.scene.traverse(c => {
-        c.castShadow = true;
-      });
-      this._scene.add(gltf.scene);
-    });
-  }
-  
 
   _OnWindowResize() {
     this._camera.aspect = window.innerWidth / window.innerHeight;
@@ -682,6 +688,7 @@ class CharacterControllerDemo {
     if (this._controls) {
       this._controls.Update(timeElapsedS);
     }
+
     this._thirdPersonCamera.Update(timeElapsedS);
   }
 }
@@ -690,5 +697,28 @@ class CharacterControllerDemo {
 let _APP = null;
 
 window.addEventListener('DOMContentLoaded', () => {
-  _APP = new CharacterControllerDemo();
+  _APP = new ThirdPersonCameraDemo();
 });
+
+
+function _LerpOverFrames(frames, t) {
+  const s = new THREE.Vector3(0, 0, 0);
+  const e = new THREE.Vector3(100, 0, 0);
+  const c = s.clone();
+
+  for (let i = 0; i < frames; i++) {
+    c.lerp(e, t);
+  }
+  return c;
+}
+
+function _TestLerp(t1, t2) {
+  const v1 = _LerpOverFrames(100, t1);
+  const v2 = _LerpOverFrames(50, t2);
+  console.log(v1.x + ' | ' + v2.x);
+}
+
+_TestLerp(0.01, 0.01);
+_TestLerp(1.0 / 100.0, 1.0 / 50.0);
+_TestLerp(1.0 - Math.pow(0.3, 1.0 / 100.0), 
+          1.0 - Math.pow(0.3, 1.0 / 50.0));
