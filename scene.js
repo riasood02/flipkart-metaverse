@@ -76,7 +76,28 @@ renderer.setSize(sizes.width,sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2))
 renderer.shadowMap.enabled=true
 renderer.gammaOuput=true
+var raycastor = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+document.addEventListener('click',(e)=>onClick(e),false);
 
+ function onClick(event) {
+
+    event.preventDefault();
+  
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  
+    raycastor.setFromCamera(mouse,camera);
+  
+    var intersects = raycastor.intersectObjects(scenic.children);
+  console.log(intersects);
+    if (intersects.length > 0) {
+      
+      console.log('Intersection:', intersects[0]);
+  
+    }
+  
+  }
 function animate(){
     controls.update()
     requestAnimationFrame(animate)

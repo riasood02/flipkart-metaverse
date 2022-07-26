@@ -10,7 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <title>View</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <style>
+        
         .modal-header {
             background: #63666a;
             color: #fff;
@@ -38,8 +40,12 @@
                             <div class="mb-3">
                                 <!-- <label class="form-label required">Name</label>
                                 <input type="text" class="form-control"> -->
-                                <img src="images/clothes.png" width="450" 
-                                height="350">
+                                <!-- <img src="images/clothes.png" width="450" 
+                                height="350"> -->
+                                <model-viewer src = "assets/dress1/scene.gltf" camera-controls width = "450" height="350"></model-viewer>
+                                  
+                                
+                                
                             </div>
                             <div class="mb-3">
                                 <label class="form-label required">Quantity</label>
@@ -59,7 +65,10 @@
             </div>
         </div>
     </div>
+    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!-- <script type="module" src="scene2.js"></script> -->
 </body>
 
 </html>

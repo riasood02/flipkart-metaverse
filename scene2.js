@@ -528,8 +528,7 @@ class ThirdPersonCameraDemo {
     this._threejs.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(this._threejs.domElement);
-    //this._raycaster = new THREE.Raycaster();
-    //this._pointer = new THREE.Vector2();
+    
     window.addEventListener('resize', () => {
       this._OnWindowResize();
     }, false);
@@ -613,8 +612,38 @@ class ThirdPersonCameraDemo {
           
         });
     // shop items
-   
-    //this._onClick();
+    const params = {
+      camera: this._camera,
+      scene: this._scene,
+    }
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2(0,0);
+    //document.addEventListener('click',(e)=>onClick(e),false);
+    document.getElementById("myModal").addEventListener('click',(e)=>onClick(e),false);
+  
+    function onClick(e)
+     {
+      
+
+      e.preventDefault();
+    
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+    
+      raycaster.setFromCamera(mouse,params.camera);
+    
+      var intersects = raycaster.intersectObjects(params.scene.children);
+    console.log(intersects);
+      if (intersects.length > 0) {
+        intersects[0].object.material.color.set(0xff0000);
+        console.log('Intersection:', intersects[0]);
+    
+      }
+    
+    }
+
+    //document.addEventListener('touchstart',onDocumentTouchStart,false);
+    // this._onClick();
     this._mixers = [];
     this._previousRAF = null;
     //this._onPointerMove();
@@ -622,25 +651,9 @@ class ThirdPersonCameraDemo {
     this._RAF();
     //this._threejs.domElement.addEventListener('click',(e)=>onClick(e), false);
   }
-  //  _onClick(event) {
-
-  //   event.preventDefault();
+ 
+ 
   
-  //   this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  //   this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  
-  //   this._raycaster.setFromCamera(this._mouse, this._camera);
-  
-  //   var intersects = this._raycaster.intersectObjects(this._scene.children);
-  // console.log(intersects);
-  //   if (intersects.length > 0) {
-  
-  //     console.log('Intersection:', intersects[0]);
-  
-  //   }
-  
-  // }
-
   
    
 
