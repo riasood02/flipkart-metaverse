@@ -27,6 +27,25 @@
         border-radius: 5px;
         color: white;
       }
+      .btn{
+      display: inline-block;
+      margin-top: 1rem;
+      border-radius: 5rem;
+      background: #818283;
+      padding: .7rem;
+      padding-left: 1rem;
+      font-size: 1.2rem;
+      color:white;
+      text-decoration: none;
+      transition:.2s linear;
+      margin-bottom: 3rem;
+  }
+
+  /* .enter{
+    margin: 0;
+  position: relative;
+    left: 50%;
+  } */
     </style>
   </head>
 
@@ -47,7 +66,10 @@
     <p id="avatarUrl">Avatar URL:</p>
 
     <iframe id="frame" class="frame" allow="camera *; microphone *"></iframe>
-    <a href="scene.html" class="btn">Enter the 3-D shopping world</a>
+    <!-- <div class="frame"> -->
+      <a href="scene.html" class="btn">Enter the 3-D shopping world</a>
+    <!-- </div> -->
+    
 
     <script
         type = "module" src="avatar.js"></script>
