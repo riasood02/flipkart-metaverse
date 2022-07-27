@@ -618,8 +618,8 @@ class ThirdPersonCameraDemo {
     }
     var raycaster = new THREE.Raycaster();
     var mouse = new THREE.Vector2(0,0);
-    //document.addEventListener('click',(e)=>onClick(e),false);
-    document.getElementById("myModal").addEventListener('click',(e)=>onClick(e),false);
+    document.addEventListener('click',(e)=>onClick(e),false);
+    //document.getElementById("myModal").addEventListener('click',(e)=>onClick(e),false);
   
     function onClick(e)
      {
