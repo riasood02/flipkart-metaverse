@@ -2,8 +2,8 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.118/build/three.mod
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-
-
+import {ARButton} from  './three.js-master/examples/jsm/webxr/ARButton.js';
+console.log(ARButton);
 class BasicCharacterControllerProxy {
   constructor(animations) {
     this._animations = animations;
@@ -526,6 +526,7 @@ class ThirdPersonCameraDemo {
     this._threejs.shadowMap.type = THREE.PCFSoftShadowMap;
     this._threejs.setPixelRatio(window.devicePixelRatio);
     this._threejs.setSize(window.innerWidth, window.innerHeight);
+    this._threejs.xr.enabled=true;
 
     document.body.appendChild(this._threejs.domElement);
     
@@ -607,60 +608,64 @@ class ThirdPersonCameraDemo {
              c.castShadow = true;
            });
            this._scene.add(gltf.scene);
+           loader1.load('./assets/man_dummy/scene.gltf', (gltf) => {
+            gltf.scene.scale.set(15,15,10); 
+            gltf.scene.position.x+=30;
+            gltf.scene.position.y+=1;
+            gltf.scene.position.z-=50;
+           
+           gltf.scene.traverse(c => {
+             c.castShadow = true;
+           });
+           this._scene.add(gltf.scene);
+           loader1.load('./assets/a_set_of_victorian_clothes/scene.gltf', (gltf) => {
+            gltf.scene.scale.set(18,18,12); 
+            gltf.scene.position.x+=60;
+            gltf.scene.position.y+=0;
+            gltf.scene.position.z-=50;
+           
+           gltf.scene.traverse(c => {
+             c.castShadow = true;
+           });
+           this._scene.add(gltf.scene);
+           loader1.load('./assets/nike_air_jordan/scene.gltf', (gltf) => {
+            gltf.scene.scale.set(1,2,2); 
+            gltf.scene.position.x+=35;
+            gltf.scene.position.y+=3;
+            gltf.scene.position.z+=8;
+            gltf.scene.rotation.y+=8;
+           
+           gltf.scene.traverse(c => {
+             c.castShadow = true;
+           });
+           this._scene.add(gltf.scene);
+           
+         });
+                
            
          });
          
-         loader1.load('./assets/man_dummy/scene.gltf', (gltf) => {
-          gltf.scene.scale.set(15,15,10); 
-          gltf.scene.position.x+=30;
-          gltf.scene.position.y+=1;
-          gltf.scene.position.z-=50;
-         
-         gltf.scene.traverse(c => {
-           c.castShadow = true;
+           
          });
-         this._scene.add(gltf.scene);
+  
+           
+         });
          
-       });
+        
+      
 
-       loader1.load('./assets/a_set_of_victorian_clothes/scene.gltf', (gltf) => {
-        gltf.scene.scale.set(18,18,12); 
-        gltf.scene.position.x+=60;
-        gltf.scene.position.y+=0;
-        gltf.scene.position.z-=50;
-       
-       gltf.scene.traverse(c => {
-         c.castShadow = true;
-       });
-       this._scene.add(gltf.scene);
-       
-     });
-     
-
-     loader1.load('./assets/nike_air_jordan/scene.gltf', (gltf) => {
-      gltf.scene.scale.set(1,2,2); 
-      gltf.scene.position.x+=35;
-      gltf.scene.position.y+=3;
-      gltf.scene.position.z+=8;
-      gltf.scene.rotation.y+=8;
-     
-     gltf.scene.traverse(c => {
-       c.castShadow = true;
-     });
-     this._scene.add(gltf.scene);
-     
-   });
-          
+    
         });
 
-
+    //const button = ARButton.createButton(this._threejs);
+    //document.body.appendChild(button);
     // shop items
     const params = {
       camera: this._camera,
       scene: this._scene,
     }
     var raycaster = new THREE.Raycaster();
-    var mouse = new THREE.Vector2(0,0);
+    var mouse = new THREE.Vector2();
 
     document.addEventListener('click',(e)=>onClick(e),false);
     //document.getElementById("myModal").addEventListener('click',(e)=>onClick(e),false);
@@ -680,12 +685,14 @@ class ThirdPersonCameraDemo {
     
       raycaster.setFromCamera(mouse,params.camera);
     
-      var intersects = raycaster.intersectObjects(params.scene.children);
+      var intersects = raycaster.intersectObjects(params.scene.children,true);
     console.log(intersects);
       if (intersects.length > 0) {
-        intersects[0].object.material.color.set(0xff0000);
+        //intersects[0].object.material.color.set(0xff0000);
         console.log('Intersection:', intersects[0]);
-        document.getElementById('shop').src = intersects[0];
+        //document.getElementById('shop').src = intersects[0];
+        console.log(intersects[0].object.name);
+
       }
     
     }

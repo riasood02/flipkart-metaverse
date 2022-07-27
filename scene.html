@@ -27,7 +27,10 @@
 <body>
     <canvas class = "webgl"></canvas>
     <div class="container mt-5">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">View Item</button>
+        <button type="button" id = "dress" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal">view dress</button>
+        <button type="button" id = "suits" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal">View suit</button>
+        <button type="button" id = "shoes" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal">View shoes</button>
+        <button type="button" id = "casuals" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#myModal">View casuals</button>
         <div class="modal" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -36,13 +39,16 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="buy">
                             <div class="mb-3">
                                 <!-- <img src="images/clothes.png" width="450" 
                                 height="350"> -->
-                                <model-viewer src = "assets/dress1/scene.gltf" camera-controls width = "450" height="350"></model-viewer>
+                                <model-viewer src = "assets/dress1/scene.gltf" ar auto-rotate camera-controls camera-controls width = "450" height="350"></model-viewer>
+                                <!-- <model-viewer src = "assets/man_dummy/scene.gltf" camera-controls width = "450" height="350"></model-viewer>
+                                <model-viewer src = "assets/nike_air_jordan/scene.gltf" camera-controls width = "450" height="350"></model-viewer>
+                                <model-viewer src = "assets/a_set_of_victorian_clothes/scene.gltf" camera-controls width = "450" height="350"></model-viewer> -->
                                   
-                                <model-viewer src = "" id="shop" camera-controls width = "450" height="350"></model-viewer>
+                                <!-- <model-viewer src = "" id="shop" camera-controls width = "450" height="350"></model-viewer> -->
                                 
                                 
                             </div>
@@ -61,7 +67,7 @@
         </div>
     </div>
     
-
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <!-- <script type="module" src="scene2.js"></script> -->
     <script type="module" src="scene2.js"></script>
